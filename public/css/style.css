@@ -55,6 +55,62 @@
             transform: translateY(-2px);
         }
 
+        /* Cart Popup */
+        .cart-popup {
+            position: fixed;
+            top: 80px;
+            right: 30px;
+            background: var(--gold);
+            color: var(--dark-coffee);
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(139,69,19,0.15);
+            z-index: 9999;
+            transition: opacity 0.3s;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+        }
+        .cart-modal-content {
+            background: var(--cream);
+            color: var(--dark-coffee);
+            padding: 32px 24px 24px 24px;
+            border-radius: 16px;
+            min-width: 320px;
+            max-width: 90vw;
+            box-shadow: 0 4px 24px rgba(139,69,19,0.18);
+            position: relative;
+        }
+        .close-cart-modal {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 1.8rem;
+            color: var(--dark-coffee);
+            cursor: pointer;
+        }
+        #cart-items-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #cart-items-list li {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
         /* Hero Section */
         .hero-section {
             height: 100vh;

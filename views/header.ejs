@@ -44,8 +44,19 @@
                     </li>
                 </ul>
                 <button class="btn cart-btn" style="background-color: var(--gold); color: var(--dark-coffee); margin-right: 8px;">
-                    <i class="fas fa-shopping-cart"></i> Cart (0)
-                </button>
+                    <i class="fas fa-shopping-cart"></i> Cart <span id="cart-count">(0)</span>
+                                </button>
+                                <!-- Cart Modal -->
+                                <div id="cart-modal" class="cart-modal" style="display:none;">
+                                    <div class="cart-modal-content">
+                                        <span class="close-cart-modal" onclick="closeCartModal()">&times;</span>
+                                        <h4>Your Cart</h4>
+                                        <ul id="cart-items-list"></ul>
+                                        <div id="cart-total" style="margin-top:10px;font-weight:bold;"></div>
+                                    </div>
+                                </div>
+                                <!-- Cart Popup -->
+                                <div id="cart-popup" class="cart-popup" style="display:none;">Added to cart!</div>
                 <!-- Authentication logic: Show Sign In or Profile button based on user authentication -->
                 <% if (typeof user !== 'undefined' && user) { %>
                   <!-- Profile Button (visible only when authenticated) -->
@@ -65,6 +76,64 @@
     <!-- Add your content here -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+        <script>
+        // --- Cart Logic ---
+        function getCart() {
+            return JSON.parse(localStorage.getItem('cart') || '[]');
+        }
+        function setCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+        function addToCart(name, price) {
+            let cart = getCart();
+            let found = cart.find(item => item.name === name);
+            if (found) {
+                found.qty += 1;
+            } else {
+                cart.push({ name, price, qty: 1 });
+            }
+            setCart(cart);
+            updateCartCount();
+            showCartPopup();
+        }
+        function updateCartCount() {
+            let cart = getCart();
+            let count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-count').textContent = `(${count})`;
+        }
+        function showCartPopup() {
+            let popup = document.getElementById('cart-popup');
+            popup.style.display = 'block';
+            setTimeout(() => { popup.style.display = 'none'; }, 1200);
+        }
+        function showCartModal() {
+            let modal = document.getElementById('cart-modal');
+            let list = document.getElementById('cart-items-list');
+            let cart = getCart();
+            list.innerHTML = '';
+            let total = 0;
+            if (cart.length === 0) {
+                list.innerHTML = '<li>Your cart is empty.</li>';
+            } else {
+                cart.forEach(item => {
+                    let li = document.createElement('li');
+                    li.textContent = `${item.name} x${item.qty} - $${(item.price * item.qty).toFixed(2)}`;
+                    list.appendChild(li);
+                    total += item.price * item.qty;
+                });
+            }
+            document.getElementById('cart-total').textContent = cart.length ? `Total: $${total.toFixed(2)}` : '';
+            modal.style.display = 'block';
+        }
+        function closeCartModal() {
+            document.getElementById('cart-modal').style.display = 'none';
+        }
+        // Cart button click
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            document.querySelector('.cart-btn').addEventListener('click', showCartModal);
+        });
+        </script>
 </body>
 </html>
 
