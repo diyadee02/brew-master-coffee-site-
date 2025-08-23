@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>User Profile - BrewMaster Cafe</title>
+
+  <!-- Bootstrap & Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <!-- Custom styles (kept self-contained so it's easy to drop in) -->
+  <style>
+    :root{
+      --coffee-brown:#8B4513;
+      --dark-coffee:#5D2A0C;
+      --cream:#F5DEB3;
+      --gold:#DAA520;
+      --light-brown:#DEB887;
+    }
+
+    /* base */
+    body{
+      font-family: "Georgia", serif;
+      background: linear-gradient(180deg, #fff 0%, #fbf7f2 100%);
+      color: var(--dark-coffee);
+      padding: 40px 16px;
+    }
+
+    .container-profile {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    /* profile card */
+    .profile-card{
+      background: linear-gradient(180deg, rgba(245,222,179,0.9), rgba(255,255,255,0.95));
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(88, 45, 0, 0.12);
+      overflow: hidden;
+      border: 1px solid rgba(218,165,32,0.18);
+    }
+
+    .profile-cover {
+      height: 160px;
+      background-image: url('https://images.unsplash.com/photo-1509047169664-6f9b4a5af2a1?auto=format&fit=crop&w=1850&q=60');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      filter: brightness(0.65);
+    }
+
+    /* avatar overlaps the cover */
+    .avatar-wrap {
+      position: absolute;
+      bottom: -48px;
+      left: 32px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-end;
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      border: 6px solid var(--cream);
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: var(--dark-coffee);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      overflow: hidden;
+    }
+
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .profile-body{
+      padding: 72px 32px 32px 32px; /* leave space for overlapping avatar */
+    }
+
+    .profile-head {
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      align-items: flex-start;
+      flex-wrap:wrap;
+    }
+
+    .profile-meta h2{
+      margin:0;
+      font-size:1.6rem;
+      color:var(--coffee-brown);
+      font-weight:700;
+    }
+
+    .profile-meta p {
+      margin:4px 0 0;
+      color:#5b3b2a;
+      opacity:0.9;
+    }
+
+    .profile-actions {
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    .btn-accent {
+      background: linear-gradient(90deg, var(--gold), var(--coffee-brown));
+      color: #fff;
+      border: none;
+      box-shadow: 0 6px 14px rgba(139,69,19,0.12);
+      font-weight:700;
+    }
+
+    .btn-outline-accent {
+      border: 1px solid rgba(139,69,19,0.12);
+      color: var(--dark-coffee);
+      background: transparent;
+    }
+
+    /* stats */
+    .stats {
+      display:flex;
+      gap:12px;
+      margin-top:18px;
+      flex-wrap:wrap;
+    }
+
+    .stat-card{
+      background: rgba(255,255,255,0.8);
+      border-radius: 12px;
+      padding: 12px 16px;
+      min-width: 120px;
+      text-align:center;
+      box-shadow: 0 6px 18px rgba(139,69,19,0.04);
+    }
+
+    .stat-card .value{
+      font-weight:700;
+      color:var(--coffee-brown);
+      font-size:1.15rem;
+    }
+
+    .section-row {
+      margin-top: 22px;
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap: 22px;
+    }
+
+    /* left column (orders, payments) */
+    .panel{
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 12px 32px rgba(88,45,0,0.04);
+      border:1px solid rgba(0,0,0,0.03);
+    }
+
+    .panel h5{
+      margin: 0 0 12px 0;
+      color: var(--coffee-brown);
+      font-weight:700;
+    }
+
+    .order-item, .payment-item{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding: 12px;
+      border-radius:10px;
+      border:1px solid rgba(0,0,0,0.03);
+      margin-bottom:10px;
+    }
+
+    .order-item .meta{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .order-thumb{
+      width:56px;
+      height:56px;
+      border-radius:8px;
+      object-fit:cover;
+      background:var(--light-brown);
+    }
+
+    .muted {
+      color:#6b4a37;
+      opacity:0.8;
+      font-size:0.95rem;
+    }
+
+    .empty-state{
+      text-align:center;
+      padding:24px;
+      color:#7a5943;
+      background: linear-gradient(180deg, rgba(218,165,32,0.04), transparent);
+      border-radius:10px;
+    }
+
+    /* right column (settings/profile details) */
+    .side-card{
+      background:linear-gradient(180deg, rgba(245,222,179,0.8), rgba(255,255,255,0.6));
+      border-radius:12px;
+      padding:16px;
+      border:1px solid rgba(218,165,32,0.12);
+    }
+
+    .side-card .list-item{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px 6px;
+      align-items:center;
+      border-bottom:1px dashed rgba(0,0,0,0.04);
+    }
+
+    .side-card .list-item:last-child{ border-bottom: none; }
+
+    /* responsive */
+    @media (max-width: 900px){
+      .section-row{
+        grid-template-columns: 1fr;
+      }
+      .avatar-wrap{ left:20px; }
+      .profile-body{ padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+</head>
+<body>
+<%- include('header') %>
+
+  <div class="container-profile">
+    <div class="profile-card">
+      <div class="profile-cover">
+        <!-- avatar placed absolutely -->
+        <div class="avatar-wrap">
+          <div class="avatar" id="avatar">
+            <!-- if user.avatarUrl exists, show it; otherwise show initials via JS -->
+            <% if (user.avatarUrl) { %>
+              <img src="<%= user.avatarUrl %>" alt="avatar" onerror="this.style.display='none'">
+            <% } else { %>
+              <!-- fallback - JS will set initials -->
+              <span id="avatar-initials"></span>
+            <% } %>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-body">
+        <div class="profile-head">
+          <div class="profile-meta">
+            <h2><%= user.username || 'Coffee Lover' %></h2>
+            <p class="muted"><i class="fa-regular fa-envelope"></i> &nbsp; <%= user.email || 'user@email.com' %></p>
+            <div class="stats">
+              <div class="stat-card">
+                <div class="label muted">Loyalty Level</div>
+                <div class="value"><%= user.loyaltyLevel || 'Bronze' %></div>
+              </div>
+              <div class="stat-card">
+                <div class="label muted">Points</div>
+                <div class="value"><%= user.points || 0 %></div>
+              </div>
+              <div class="stat-card">
+                <div class="label muted">Orders</div>
+                <div class="value"><%= (user.orders && user.orders.length) || 0 %></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-actions">
+            <button class="btn btn-accent" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+              <i class="fa-solid fa-pen-to-square me-2"></i> Edit Profile
+            </button>
+            <a href="/orders" class="btn btn-outline-accent">View All Orders</a>
+            <a href="/logout" class="btn btn-outline-accent"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
+          </div>
+        </div>
+
+        <!-- content row -->
+        <div class="section-row">
+          <!-- left: orders & payments -->
+          <div>
+            <div class="panel mb-3">
+              <h5>Recent Orders</h5>
+
+              <% if (user.orders && user.orders.length) { %>
+                <% user.orders.slice(0,4).forEach(function(order){ %>
+                  <div class="order-item">
+                    <div class="meta">
+                      <img class="order-thumb" src="<%= order.thumb || 'https://images.unsplash.com/photo-1509047169664-6f9b4a5af2a1?auto=format&fit=crop&w=500&q=60' %>" alt="item">
+                      <div>
+                        <div style="font-weight:700; color:var(--coffee-brown)"><%= order.title %></div>
+                        <div class="muted small"><%= order.date || order.createdAt || '—' %></div>
+                      </div>
+                    </div>
+                    <div style="text-align:right">
+                      <div style="font-weight:700; color:var(--dark-coffee)"><%= order.total ? 'Rs ' + order.total : '—' %></div>
+                      <div class="muted small"><%= order.status || 'Completed' %></div>
+                      <a class="btn btn-sm btn-outline-accent mt-2" href="/orders/<%= order.id %>">Details</a>
+                    </div>
+                  </div>
+                <% }) %>
+
+                <% if (user.orders.length > 4) { %>
+                  <div class="text-center mt-2">
+                    <a href="/orders" class="btn btn-sm btn-outline-accent">See all orders</a>
+                  </div>
+                <% } %>
+              <% } else { %>
+                <div class="empty-state">
+                  <i class="fa-regular fa-bell-slash fa-2x" style="color:var(--light-brown)"></i>
+                  <p style="margin-top:10px; font-weight:600;">No orders yet — try our signature cold brew!</p>
+                </div>
+              <% } %>
+            </div>
+
+            <div class="panel">
+              <h5>Payment History</h5>
+
+              <% if (user.payments && user.payments.length) { %>
+                <% user.payments.slice(0,4).forEach(function(p){ %>
+                  <div class="payment-item">
+                    <div>
+                      <div style="font-weight:700"><%= p.method || 'Card' %></div>
+                      <div class="muted small"><%= p.date || '—' %></div>
+                    </div>
+                    <div style="text-align:right">
+                      <div style="font-weight:700; color:var(--coffee-brown)">Rs <%= p.amount %></div>
+                      <div class="muted small"><%= p.status || 'Paid' %></div>
+                    </div>
+                  </div>
+                <% }) %>
+                <% if (user.payments.length > 4) { %>
+                  <div class="text-center mt-2">
+                    <a href="/payments" class="btn btn-sm btn-outline-accent">See full history</a>
+                  </div>
+                <% } %>
+              <% } else { %>
+                <div class="empty-state">
+                  <i class="fa-solid fa-credit-card fa-2x" style="color:var(--light-brown)"></i>
+                  <p style="margin-top:10px; font-weight:600;">No payment history found.</p>
+                </div>
+              <% } %>
+            </div>
+          </div>
+
+          <!-- right: quick settings / preferences -->
+          <aside class="side-card">
+            <h6 style="margin-top:0; color:var(--coffee-brown); font-weight:700; margin-bottom:10px;">Account Details</h6>
+
+            <div class="list-item">
+              <div>
+                <div style="font-weight:700"><i class="fa-regular fa-user me-2"></i> Profile</div>
+                <div class="muted small"><%= user.username || '—' %></div>
+              </div>
+              <div class="muted small"><%= user.role || 'Customer' %></div>
+            </div>
+
+            <div class="list-item">
+              <div>
+                <div style="font-weight:700"><i class="fa-regular fa-envelope me-2"></i> Email</div>
+                <div class="muted small"><%= user.email || '—' %></div>
+              </div>
+              <div><button class="btn btn-sm btn-outline-accent" onclick="copyToClipboard('<%= user.email || '' %>')">Copy</button></div>
+            </div>
+
+            <div class="list-item">
+              <div>
+                <div style="font-weight:700"><i class="fa-solid fa-gift me-2"></i> Rewards</div>
+                <div class="muted small"><%= user.rewards || 'No active offers' %></div>
+              </div>
+              <div><a href="/rewards" class="btn btn-sm btn-outline-accent">View</a></div>
+            </div>
+
+            <div style="margin-top:12px; display:flex; gap:10px;">
+              <a href="/settings" class="btn btn-outline-accent w-100">Account Settings</a>
+              <a href="/help" class="btn btn-outline-accent w-100">Help</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form class="modal-content" action="/profile/update" method="POST" enctype="multipart/form-data">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Display Name</label>
+            <input name="username" type="text" class="form-control" value="<%= user.username %>" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input name="email" type="email" class="form-control" value="<%= user.email %>" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Avatar (optional)</label>
+            <input name="avatar" type="file" accept="image/*" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-accent" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-accent">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <%- include('footer') %>
+
+  <!-- Bootstrap & small script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Show initials in avatar if no image
+    (function(){
+      try {
+        var initialsEl = document.getElementById('avatar-initials');
+        var avatarContainer = document.getElementById('avatar');
+        <% if (!user.avatarUrl) { %>
+          var name = "<%= (user.username || 'Coffee Lover') %>";
+          var parts = name.trim().split(' ');
+          var initials = parts.length === 1 ? parts[0].slice(0,2).toUpperCase() : (parts[0][0]+parts[parts.length-1][0]).toUpperCase();
+          if (initialsEl) initialsEl.textContent = initials;
+        <% } %>
+      } catch(e) { console.warn(e); }
+    })();
+
+    // copy email helper
+    function copyToClipboard(text){
+      if(!text) return;
+      navigator.clipboard?.writeText(text).then(function(){
+        const btn = event?.target;
+        // small feedback
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
+        setTimeout(()=> btn.innerHTML = orig, 1200);
+      }).catch(()=> alert('Copy failed'));
+    }
+  </script>
+</body>
+</html>

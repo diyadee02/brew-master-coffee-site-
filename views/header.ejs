@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website Title</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <style>
+     
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: var(--dark-coffee); box-shadow: 0 4px 16px rgba(139,69,19,0.10);">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img style="width: 120px;" src="img/logo1.png" alt=""> 
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" style="color: var(--cream);">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about" style="color: var(--cream);">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu" style="color: var(--cream);">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gallery" style="color: var(--cream);">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog" style="color: var(--cream);">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact" style="color: var(--cream);">Contact</a>
+                    </li>
+                </ul>
+                <button class="btn cart-btn" style="background-color: var(--gold); color: var(--dark-coffee); margin-right: 8px;">
+                    <i class="fas fa-shopping-cart"></i> Cart (0)
+                </button>
+                <!-- Authentication logic: Show Sign In or Profile button based on user authentication -->
+                <% if (typeof user !== 'undefined' && user) { %>
+                  <!-- Profile Button (visible only when authenticated) -->
+                  <a href="/profile" class="btn p-0 ms-2" style="background: none; border: none;">
+                    <span class="rounded-circle d-inline-block" style="background-color: var(--gold); width: 40px; height: 40px; display: flex !important; align-items: center; justify-content: center;">
+                      <i class="fas fa-user" style="color: var(--dark-coffee); font-size: 1.5rem;"></i>
+                    </span>
+                  </a>
+                <% } else { %>
+                  <!-- Sign In Button (visible only when not authenticated) -->
+                  <a href="/login" class="btn ms-2" style="background-color: var(--gold); color: var(--dark-coffee); border: none;">Sign In</a>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Add your content here -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+

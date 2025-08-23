@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrewMaster Cafe - Brewed with Love, Served with Passion</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+  
+</head>
+<body>
+    <!-- Navbar -->
+<%- include('header') %>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1>BrewMaster Cafe</h1>
+            <p>Brewed with Love, Served with Passion</p>
+            <button class="btn cta-btn" onclick="document.getElementById('menu').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-coffee"></i> Order Now
+            </button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section section-padding">
+        <div class="container">
+            <h2 class="section-title">About Our Story</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-text">
+                        <p>Welcome to BrewMaster Cafe, where every cup tells a story of passion and perfection. Since 2015, we've been dedicated to bringing you the finest coffee experience with carefully selected organic beans from around the world.</p>
+                        
+                        <p>Our mission is simple: to create the perfect cup of coffee that awakens your senses and brightens your day. Every bean is hand-roasted to perfection by our expert baristas who share the same passion for coffee that we do.</p>
+                        
+                        <div class="mt-4">
+                            <h4 style="color: var(--gold);">Why Choose Us?</h4>
+                            <ul style="color: var(--dark-coffee);">
+                                <li><i class="fas fa-check text-success"></i> 100% Organic Coffee Beans</li>
+                                <li><i class="fas fa-check text-success"></i> Expert Baristas</li>
+                                <li><i class="fas fa-check text-success"></i> Fresh Daily Roasting</li>
+                                <li><i class="fas fa-check text-success"></i> Cozy Atmosphere</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="img/sec1.png" alt="Coffee Making Process" class="img-fluid about-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="section-padding">
+        <div class="container">
+            <h1 class="section-title">Our Menu</h1>
+            
+            <!-- Menu Categories -->
+            <div class="text-center mb-5">
+                <button class="btn btn-outline-dark mx-2 mb-2" onclick="filterMenu('all')">All</button>
+                <button class="btn btn-outline-dark mx-2 mb-2" onclick="filterMenu('hot')">Hot Coffee</button>
+                <button class="btn btn-outline-dark mx-2 mb-2" onclick="filterMenu('cold')">Cold Brew</button>
+                <button class="btn btn-outline-dark mx-2 mb-2" onclick="filterMenu('snacks')">Snacks</button>
+            </div>
+            
+            <div class="row" id="menuItems">
+                <!-- Hot Coffee -->
+                <div class="col-lg-4 col-md-6 menu-item hot">
+                    <div class="menu-card">
+                        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Cappuccino">
+                        <h4>Classic Cappuccino</h4>
+                        <p>Rich espresso with steamed milk and velvety foam</p>
+                        <div class="menu-price">$4.99</div>
+                        <button class="btn add-to-cart" onclick="addToCart('Cappuccino', 4.99)">
+                            <i class="fas fa-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 menu-item hot">
+                    <div class="menu-card">
+                        <img src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Latte">
+                        <h4>Vanilla Latte</h4>
+                        <p>Smooth espresso with steamed milk and vanilla syrup</p>
+                        <div class="menu-price">$5.49</div>
+                        <button class="btn add-to-cart" onclick="addToCart('Vanilla Latte', 5.49)">
+                            <i class="fas fa-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 menu-item hot">
+                    <div class="menu-card">
+                        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhUSExIVFhUXGBgVFhgWFxgYFxcZGBkXFxcWGRYYHiggGBolHRYXITEiJykrLi4uFx8zODMsNygtLisBCgoKDg0OGxAQGy0lICUvLy0vLS0tLS0tLy0tLS0tLS0tLS0tLS0tLS0tLS0rLS0tLy0tLS0tLS0tLS0tLS0tLf/AABEIARMAtwMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAFAAMEBgcCAQj/xABCEAACAQIEBAQDBgUCAwgDAAABAhEAAwQSITEFIkFRBhNhcTKBkQcUQqGxwSNS0eHwYnIVM0Mkc4KSosLS8RY0VP/EABoBAAMBAQEBAAAAAAAAAAAAAAECAwQABQb/xAAsEQACAgEDAwMEAgIDAAAAAAAAAQIRAwQhMRITQSJRYRQycYGRwaHwBQZC/9oADAMBAAIRAxEAPwC+C/XeegxLd6cW4w61QmGAa6oOMSaTYs9644Ks9NNeFBrmKNMPdauoIbN8d64N/wBaAs7U15rUQBm9f9a4tYv1oOWJr1MO1AJYlxQ71794HegPktXuRq4AcOIXvTL4te9BnzVFu5qNHBx8Yveol3HL3oK+ao11TXBC17iC96gXuIr3obdQ1DvWjXBCzcQHekuOFBhZNei2a4IdGNWvGxQoOqmnBNE4m3L4pVCK0qBxqIsCvHwwqSFrrLQEBxwtNthaJlKbZK4IN+7CuxhhU3y69FuuCD2wgpq5w8RRgWxXYQVwCvpw8CidnDCNqlm2K8iuOGTYXtTTWF7VIc1Dx2IyqWrrOSs5ewvaol2yvaqni/GwBI7VBueMie9J3YlOzIt9yyO1RXtjtVRueNCBBmoL+LSTXdxBWJlzu2h2qMbantVQxHicmo//AOREdaHWN2vkuZtiuSgqljxIxqUvF2Imu7tcnLFZaco7V5pVf4PxvNcyPVrx+EhQ67dadSsVxohGKVMl69prFNDwXGkZvLcZH7HY+x60QdqyG5xk3ActwOgaVbZl9J61pPAsQbmHtuTqVHzqUJNumHJBJWgsjVzceuFMU1cqhM6N6uPvFN5DTb2q44ebGUycdTTWq4+70AjzY+ufv9NNhaS4OgHYd+8zUHi2LCqc2xoguGob4iwWa0R1ijQLpmbcT4YC5dQcpM6VGXCgdKct8bfDsbbqT2PpTlzjYbWKyzxuzdCaoEcWwpiQDQEsa0S1xy2yZCv5VFtYeyTJUU8biqEmup2UTU1IGFY1odrBWB+AU+mFtAzlFM5AUDP7dnLuKl4VjMAVdb2Ett+EfSnLWBt/yj6VKSZWKKZjsGfiUGfSrd4S4lcuIUdSI6nrU37usbV4by2xoINDHN8ByY/JBxYysRSpm8STJpVsMRan4TaLGzZtASMssByjuANBVn4fghZtraGygAfKpWKtWsOC0f1rlHkT31qWPljZeEICvSteUiaqQFlrllpTXhNcE8KVw0CnJqLf3rjiQkGu8tRcO2tSS9ccIioHFPhNS2eh/Em5a5AMc8bD+KI71N4H4OvXrYcNE7aVE8af81fetU8AgHDW/ai0my8ZuMLRVcD9m94kzdge1FMH9ndzre/KtBt7HXoad4aOTeaXpRzzzKTw3wO5nPc22gfrNTbXgvoXPpttVsw+IksvUVIwYP4qFIXuyKtY8F292Zo96et+D7W8mPerO8QfamMBeBtEgyNa6kd3Je4Nw3hewPwz7maonjjhq2rq5NmB07RV+4BjHcOWGmYgeoGlUHx0pXE6kwRI9O9dSGjKV7sAUq5zUqcQuXH8czkZj+IadKPWcQIHtVR4k0lB/qFXdcEIHtUcXkfNwhoXhXWeuxhxSKVUgczSJp1Ur3KK4JHmvGSelSworopXHEAWzSS0zGF1O8DX/N6qfHfF9o3AltrpVCfMyL8cEaA7xown1rrCcdxt62v3FVt2xmL5FRrimZIbM3KTuNJqEsyT2LxwNq3sWY2z+1Q8ZaMVHv8Aid08nDkC9fuKHlQOXMdyFgGRH6k0VxJItDzIW4d1gqfQgHpRhnjI54JRZivj1ece5rQvAWPtjDWwXExVM8c8Nu5z/CuSJJ5GOnfQbetVDC4t1EK5A7A1bq8leyn6UfSNnFW3QjP0rvBYy1bXLn+prCeDYq89xE854ZgDr0rbcPwqyLaq3WBrRI5cXbfIWsYy18QYbV7/AMVtD8VcWeFW8oAGlenCWpCwJ3oEjpuJWyIJ3FCrfE7Vm0ybATv60Yv4BCRy7VVftGw6i0rAbMK4aKTdD3APE9lbMMwBE71Fw6pjbhuRKjQVnt5tK0f7PkiwD3oJlckFFWST4Zt/yilVjNeUbM5meL+NB/qH61o4t6D2rNr5/iWv96/qK01m0FTx+S+bhDHkUvIpxGqDxniQtLAjOQSgJA2gSZ9WGnWnbpWRSbdIllKh428ttS7GAPqfQDqah22v27E4i+lsiMzuAD0Og0E/WgHEPFFxnRLQDuwKqmhHZrjAanfRdtdzUZ51FF4adyY/ifE11QzjDv5ccrMGGp2J00G1U/F+L76obXnzmXnOhYd8rfhBH5+9EeNccxQvDCPebOVzNooEKNoA3/zpVUuWLT4nLdef4nPlWQUgEOe/tOkVm7kpPdmlY4xWyQT4Tw03rbIoHltlPMJkifhYCRuJg7nWrRwbGJw8Gy2HZTe1Ls0pmIyoTIEJsesTV74Ylu2cMSUBdSiZYykATy5dAIAMenWJqu+O5vXiottltrlnIYJJkwYjTTrFK04LqTOjJZH0tDtpLNm5hsVeWH8ry3yc0NIYE9T8TCR29KsuB4lYvMt4q43thmACnNB3B2Ee1B/CuFZrXl3LBuFDCNcgKqiIXNGo36HerhbwwygHKY/CohY6CDOwp8ak1a4J5Wk6fJAxLW7eVFVmYzEAncyZJoP4k8I4fF2jae2FbdHUAMrRof6g71YsPwlRee9JJYAR2iToem9K4pBy/T1rQnLyQez9JkHF/s8OCfDXLLXLsvF0FQSuk5hlHw9OvSr6llWCMTEHarLZEiDodqFY/hKukNmbU8wMFe2o/wDqqKdHSk51Y5auqANRTbBM2aRtVJ4zgcRaWUdnt/zDcf7o/XagzcQumJc6UjzIaOmnLg1S7ikGpYdKqP2hYxGw5AYTIj61Wr2MuMPiM0Gu4K8+5JHSZorNFl4aHNfDBl+5Wt+CQBh19qyx+HwQGbrtWrcAwxS0AOwpozjJ0ims0ebDjUpqkw4Wr2h7FhXtPR5dlBcS9r/vF/WtOS1oKzjhKZnt+jL+RrTxSQK5CJjL9uyhuXGCqu5P6ep9KptpjjcYklgFL/wyRlGUDJHVtcjHsQfnx9pOKIuWxmgIJ1JMs3KCE2Y69e9WLgeGPI6smQo0lEhmYlR8XSMsEVLI23RTGlGPUUTF2vvmMKPcJuGVtpEry65t9BlVukz1rrCcPNjF3hmlhaCrmUKyg6lwCZjMygHeVPpJri3h5s5Nh3W6r8pOkvqS0hWWIkaio3B+B3lxqXroafLZDdK5c7gAu7ASE1iDmIPQDasai/JsckuOCpcH4U97GlrjOzrbfypMkuNch135mI3kE7aVJ4Dg7YxOIzKc8KyCNSpzLcKr1ZSymN4FXjivAzh7oxKSQupO2sGGZhED1BjTpNVfiVxHuNcuB7LzIa1JBJEHLzAgnWYaNfWhxtL8DLfePHIcxviO/wCarNpbXWBamAvKcrZuo76jt0o5wHxY193VbByqJEMueAIIKsRLSD27epo2J42ToCXGVVzOAr8uvSRv+/SpOCn/AJ+ixPOsKw01kgyenQb/AF5ZGnsxezFrdGmHHXTqtu8CRABCQP8AUZMfQ7U9ba4oHmX0DMui5QApA1IJILDbftVBtcbxA0F1yBJWSfUGc3xT67V22JusRJZix0ks0/iI1/Dr6RBp++vkT6Z/BcjxjNCq+YCAzBSuswNGOoOp0I29RUpcVzB7jBeWQsrLa7jX0/Oq3wnwvcuNnu8qx/4gQTsPpv8A0o/d4Xh0TJlBA1JO/USW69apB5HuyeRY06THLOJ55zcpEgsQBAnNAOsjr71K4e2YMIJBLGSI07QQI7fKqrxDGZXWEGdWU5tNFJaVRM2sbajUtNTb/ia3bUzJuuJVSMx9ASNl94po5UnuI8LatEviI8lVdCYByBILaEHQAb9ImqVxThXlZWiVbYjv2PrGtXNMVcFhbj5SSQwWVEiNpJiTr17UNxjJdwt1yycs3AFIIEGBJ9dvnU8q6uD0P+PzywzS8N0ysg21EkVExnE7QWBFcXschEaVW8YgzHUVmhDqe59bgx4m7ySr9niPnur6sP1rZ+G24tj2rF+GOPPtiR8Qra+HtyCvQwRadnjf9m1WOahDG7odNsUq6LilWk+QMy8LvN1R6itNJrIPBbM+LtKvYs3sP7kVrpQ0kOCuVblJ+0PAtKXwJQjy7gG4nYz0nb5DvRDw3fN9LNxTlyORcGZjmU5gsgECZn4p66TUrxlbP3K+eqp5g90If9qqHhXiGq3bLlZjOg2YayGU9d4Pf6Uk4rqGhJ9JoeMsqHLvkCkZZgaE669Tv6U1hwyhbSKhUiAXd3gbgljJ66A9jrqKn2b6XU3EHSCYPt76U3Z4RkYlCyg7DNtoZOX4T03B1pHHcZTTW5UE8U38K/lYrD+WucKrgRbcc21xzoSSI6ATFcYfiPDsTfdALtq5nyaE5WbNGaBKr+KSRETM1e8OfMXK6SIEkjRjAnTpv69a8t4DDq0hEmJAnpsTBO3SlcL/AB8jKaXw/gqdzwrbeVtYhXaJh4JIOhMrr21A6CncL4Sw92At7mUxcCwRrqVG0a956/KxHw/YMwCJkaGIk7D+/aoFnwt5QLW7lwOTrlIErMxzdd9QRvS9pL/yN3m19x1h/CuGBMy++7bdCOWDRPCW7NpRljXSSZJ6/EdTVfxyNbYJ5hSSWi4zZTqSozA8ohSN9zqNq8t8PwxRTdazcuK2bW6WEemY7abRFcpRT2R0oykt5BLH+LsPbBIuqSM0qsnaQddhr3MRrVfvjH4pTA8u04jnlNOuoGYk5iZgTFHbfEMJbuFlNrUf9O3LaHcssjrseompN3izOoFi2WJBKsw09DlmWgxoYrpNS5f8BguniP7YDxuDGBw4AJe4SFVmcl2Yg5QSdcggnsNhTXh3hbW7TYi7c5mBCMRLFm0Jg7axpRnB8BYxdv5SxM3C55iogqJEAajbaovFzZv30ym5dW2CBbtIuRc0DVzA2BHbbbqnR5f6Q/Xt0r9sbVDi7hPmnyLaBGZbkq7DVm5TEEaa+8bUM8TYizh8ILFjS2xy5o+OIJg/iGmrbTA7wfThhYDzgEtrtaVi2eIym40c0a6ba1B4riZxHleQtxFtZlhgCCSBkAOm0dtqtGHuReSmqMqd2zcoY/I1Fu4G9cbRGrYLeHH/APHcHzt//KnPLQb4e4vrlDD6oTVYxigvPP8A1mX+H/DN7zVdhABnXetYwyEKBSw1pd1iPSnm0qqM85OT3OTbNeV35lKiToxHwbxdrDG6AJK5RParRc8Z4htio+VVC2gAiIinVaK8yWWXhnqLHF8oN8X8S4l7ToSuVlZTp0IINVHg2OZMjKSDBH50UuXxlI76VXGGQhR0p8cpSTsScVFqi/4fxSSAt1ZGmo30PY0f4d4otyDbuspB+HMQD7qdDWcMwyr6gVGS9VaZLY2J+LXSGc3cytByuq5P/Tlb5TU3B+IbeW29y2Rm5eViwEaaqdY+tY9hse6iA5A7Tp9KIW/EN0LlzAj1ApbkMoxo2i1xSw2q3yJnUggGdJ5hGkU7axpjS4hCkAZWHNBMgyO0fMetZPZ8TOANF26CpuH8XONMibzuf6UO5L2O7S9zW0uW7o1CkdjB9jBrm5w6w0ZkTuNB2j9Kyl/GlwGTZU+zGuB47uzAtKP/ADUe6vKFWGXhmuWbVm2IXKO+s/rXF/iIUQgB7dvpWUN4vxJByhFjrGv50ze47iHEG6dewC9PSu7vsg9h+WaPj71r4r9yR2c8vyQaH6Go3/HrajLaUQBppAHyrP8ADklpaSe5MmiQc5ZrlNvcDxpbFzw3ECdW1/zpQi1c85GYLcRmuOMzW2MC2xQGQNiBp7k1zw67Me9XAbCrx3RCWzKI3Dro/wCusT1LDT5gUe8JYQLmzXwxnUA7UbuGo9zChviHsdiPZhqPlVBdybi+GA86fF17N7/1qEbcilgMRct3DbZsw3RupHZhtPqPpU26wJkdf12P6VwGDHsGlRArSo2KYPjRoYHrQL70xGoij+MtmzZa7d5SRCqd9fSqgmHuXCCisfbasU47m+Eth4YqNJ61Fxt0Fzl26URxPA3tiXIzETlG9BLyxm9Dr8zpRhVbAm9wzbvTbU9tKiG7rTeCuQGQ+4pdaoIS0u161+o6muC2tKMEFxp0FSbeKPegofWpFm5rQaGTDNvEa1PFuNary3aOC7yr8qRodMfFzU1Owneg5uSTRPBvy0oWEMOdfrU1rmlCbF3epYb96aPAskWPg7aqPUVdbVwMJBms6xOJ8rD3bvVbZj3ykD8yKHcB45dW2t625YfjQ6x/SqPMoUmRWF5LaNay12BVa4T4ttXAA/IT32+tWMXBEg6VeMlJWiEoSjs0DsU04hQN1ST8zp+h+lEUoBw+95l25d6E5V/2roPqZPzqwDQUyFYqVeCva4B8y+L7uJbFFcUeYEQq/CAdiKtFxMltVtMqDKCCetW7xXfwiKfNtBrrLy8uvoZqi2zfukIiSFAmFkD51gzP1Ujbi4sFY3HEgzclhucv70Ia2LiA9SCG9wSQatGMwahsrJDbx1Pr60FxFrVoEEDbbbejilvQZrYGwAc/t+gBpw+lN3IOh2mmluAHTb/NKuTJM0gnWuA00/Z21oBQwRrT1neujb1rlVilYyJCijFozQW0STFFLZjcxSMoh+229T7bwtB0vLuTRNRK0rGolYRTJNFLUQYI2oRhrZbcmP1qTs0jbvS9dDdFi8UYycO1uYzOo9SBr+1DuB27+Gi4EZrbaRHxe3rTq3181fMXNrop7nXX61oWH4iGtgC2Dl22Cr8z1qM3JumMulLYrwtSCUX4vwsIy/2o/gWe3a8jMxd9ySeRT8RHbsBUW5iyWBkO/RQORfU9zRfhuHC8zmWOpJ6/2q2BdFyfBHPLq9K5CXBraAhJAKgHL1E6Lp7CjMVnPia7bt3BesvFyeYgyT7+npRXgPjEORavwj9G/C3z6H0rRi1UJuuDPk00oq0XKlTIuEiRqK8rSZik8awOGvMrYgtmX8KzHsQOlTcHhFUFbdlVTedvqKkXcK6FWtsgBPPmkz2yx1mmeI8IN8cz3VERFtsgM94qPTvZS/BF4rcspba4721gGGldPSsZv4k3czHdidQOnQ/Or1a+zUksHuKFzEroXfL0k6CaHca8NjCXBDZ1YatlMr0jQ6k1HK5VdF8fTdWUl8I2XSC2x+uhj1FDTdkiRB2NWRrOU8sAq2xGhH8vcz1qs4i3DERGpjrpOmvWmhLqR0lRLsVNW4KGYVtYqTr1H60WcmTVYV6HI6VBW5rvTovT7bUrRRMl5j/gp5ahi739qkW7ywamyiokoaLWbmg9qDI+bY7f586LWcK2Wdh3NI7KKiZh752Gs6D9Km2Xb4QpYgwFAks/8oA6DqekUxewyoBbC5rhXNMgBQfxTOh0096XC7bWpuMxEggAEqQpgkTuAep6xQVJ+oWUrXpD+LwNhLXlPzXfjaIMOd9enaB0FcYC3MInXeKh4fFqTpayg9TLfntRHi2PbBYcXQJuXeVAByrpJJHWjLLG75EjCXCCGJe1g7ea4QWPwoCCxPr2FV3EcQu35ZmYT+BNFA99654BwHFYybx1Df8AUcwPUAb1K4vwm9hYzpKkwGGqn5/tWLUZM0lx6TRhhji6v1DK4VQo0OnxfOnr1pMg5Z2+Xeh64npA16k6fSpWeOs+g2qEZuKs0VYd4Dx1sOMrE3LWvq6dh6j9KVBreIkR8yO/bWlWuGuyJUZ56THJ2y8X8KtzILqqj5iyDN/KdCI36aeteYrE2rT27TXAHuyFAPYEkn+UepjUgVF4x4dt4sp5mYG2SQyNlOvQzMjSayrxfxZsNffBKFuKrLqpjNIBh+7gn2FepJyT2R5kIqXk2TBcONq3DXGYLJLudYJJ1Pp+1VvF+PsCsrluXN1+EZSfcnUVm48aOvK3msui/GWQ9xlYx6UwMRg3JzXDb7DUCdvxA9hU5ZJeF/ZSOGPl/wBEnF8Rt3sxW3lAJYJMQpJhQRB0qu8Sw6GTbKkDQwxkHeBNW9sAoRSGIzDlOms9fUT0oPxHhjIrNAkQMyDU/wDh2B9alje+xaUdioq5mIOn1o7wqz5lstAhZ1B10E6iNKawfCrly6icxVnW35hVwFJIElwOk7VqeA+zzD2cpNy67ucoOizpryqNQI3M1rSTMrl0mY38OtsLnMSuZZB19JFQmxExAgjrO9WP7QeA3bGISw1x3QgPaAUaBpBBC/i5d+0VUxhYMeZGsaq37ClcUMpklGB3OtSrZWN6gW8ETHP31Ct06ba1Kw/DWa55YzMwEkQEgd+8etTlFe5RT+BwXwpzTEVq/AeEXjhrdxbYuOwlYYQvZmc/WFHSJ61m+I8NkgZDLbBdpM7idxvrWgeB/FD4a3awd9ADmyC4WChVOxdTqOw76bTQjKF8gn11siLieCYhLiIyMbpbMTAbOOrtEz2Ao0vB3N4A2ipOmVviI0MmdD120rQ7BBAZSD27HvTYZlUM4mDJOwWffWAK56de4qzv2KfxHgN1Xt5gotlgrFRKr2076DXapHHfCyvct3b14NZt6+UwKiP9wPepvF+LWnt4i2CxJBUZNwQoOh2Ed6GYbFkKLPm3HcLzu2QwTsFB0YQf61J44JlVKbRYLDWbFh1tJCKugQkjXaKl3kS9bW24IBgmN9NQdPWhl7hZe29pXFvOuUZAAQJ3jb1qdwrBBAFljpAzEiQNOlXSfHgg6W97lPxPgS7nby3XKScoYnMw9YECq/cwl23cuIEaUJDQCwBH+oD1rSfE1/EW7DXMMqkiAVysWIOhK6jUb7dKI4W1lCCACQS3rtJJ6nXess9FCWy2NMNZOKt7mTKFuCcwU/ODHf1pVpOK4FhUZrz2xzt3MDTcBdp/evah9DJctfyy/wBdF8J/4Ms4p43xV3D3EZba5yBmtl1ZVOuhDekexolwTwBbuWEuXbjAuqsUCqMoYTEmTMddKrrYNWRtBoQ3vEiD3Go0q7fZ1xh71prd27me1FtUiCUCrDs2uYySJ9Nta3YpKb9RlyxeNekBY/7Noa2uH51YHObrAFSNjKjWR06RQzE/ZleNxFU2mV55gxyrA6iJPYRPyrXMRhmIyo2Sd4UtI077H1pm5et2uUlUfQIsSWLmOXvJGvtVnjTIrNJKjPOJfZink5beLujy9eYqU1IZgoEEHKZAkzptvVut+FsELSr5WfljPmdmMj4i0zJ3mpnFcC72PuyMU8wEXrupYKwOfKdi7GQOgmddAeODcASwgGGuXFRdlZmuJ9G1GvRSKZRQrk2TMDhVRFtWxyqAq+sAb+p715gw1xjdKqoAyW+YkkTzNoOpAjrAExtXOLtOwKK4tHZiILFdJKqZiZOvSNQejoUqiSXyrlAlshgD8Ta9v8mjYlFc8ZeDxiMj2QiXpJa45ZSyx8IABkzGp2A9apWO8PNhrgW6ACFzkLzArrJUmI2I771eeI8dv28TYs28GhW7J87zGcJlgNmXKI3XrBkUbfL5jOEV2yjNccLOwIA9AsmNO1TnFMtCTXJlOEwBuZ0tqqqqZnuE8qA6hAY13EkbmaMcO4OAqghtVGYiAxBJhnfSF6AAz6datlvh9sXGZP4S3DnCBADJAnMAddRJiYkfJjCYK+bhgFFXODnAKeYSRnnKWJAJjYRrWSUZXRpUlQynBragooAkRuMxAnTT4VJJIG5oTf4QwxNkgW2fMpKXOUHquYgEgADQRuNjVgxFi6oVcpaWVAyjPG4YwWHbQ6xNc4fw+Tc87EC0QsFDmK5YIOZ8wBLhZE+g0FCMH1HSkqLQ3EQgKEr5n8quCY6GDBiqvi+Nuxa2tkgheVnZczyd1gkSI6wd9DUrFXUAV7juEJktbXlYlwEzgZtGIEGYjQ67xsZhMy+Xsdiw2tplOeQRouxkncmtMpNkIRSBDi07qJRgTDNnlnP4jmI5dTG/Ue1GOK4DEXFtrhhaTKQzZi7Ekbahlg6b671XuHKjIb13+HqFtgCQsklcpOrfC2/brtU+9w3zrllrgvJk0zI72lcCSVfcspEHcamJ1qUOdy0+Niw8Q4ddv2iDee1dXZrDCYM8pL6EEegIOu9E7iPasf8AZree7ACm7c0JImWbUn2A6dKE8QxOJFgW8IbasCJa6rZN4CDJ8JJgSZqVku3EZbjC27Quew3MpjeSBIEzqNqumjO0yTwW7iTbH3q0qN8JyMGWZEOC0GPQj61OxlnMVJzFhMaxvEyNiKF8EwDorebiHvOTmLsNFB2gCFA0M6dT8il3EBYnMZ2IXMeknQQJJBk+lMnsI1udYfFpMZxmUQyzBHuo9u3WlQ63wa35rXjYsm62rXG5mOgUAiARyxtppSpk2BpGU8Nwdy+4sWwCxRiSTAXqpJ7Alfqa1PgWDazZRGt20IAkWjILRzGWAJM9d9aC+F/CS28mJZrvnFTKjlUZt0KlZMDT5VZ7bK6yGBHQzBHtSYMfSrfJTUZet0uAVY47bu4h8MiMXQBn8yVXK0EFf5vlp67UQvWSxACiJ5ukDUzGs6xp86j4pE822rI7Oc3l3FQ6R8SlxoJABgwD8hUrh+Ga0MmZ3Eky7Asv8qzGo371UjsQ+JvcsWi9u1cxL/htqUT11JI00jrUfwvdxF3Dk4pDavEuHUCI5jlIIOoiDIOtcpbx7Yp1FxFw3QshNzUAkJsIExmM/OiFzillL64XzVN5gWyTzADWT2HXptXBfsBPC1jiDFmxd+wQBIW0vNl1hmcmFB10E9da7scfwl3EthrTC5cRczx+KGAADbHddjHMJ0ml4q8QWsI6Jes3HW6pCukHMQQCjLIO7jTYzp2qXwnB4f8A/Yt4VbDH4iUVbmsEghdZPY6z60vwN8jr4TmVjaLlQwXQSM0FhnmFBIEx/KO1C+GXUCC3dUW7u2U5WljMMriZHNGh0B2FWpCCMzQogzm6ehPsRpVJu8Uvvimwz4W7isNK5LotFMpMZtXhXRdeYEHYc25DQYuwhi8E5vrdzAgJAtouaClzNnVjtpoV7qsDQz54g4oMHYD3/NfzGCLlZWIJDOYVoUKAoG1P2cNZw2a8164qGVC3DKJJGYSFJBJG8yT61nXHYvX7ji9cu2gxNvzGLQPQHYaR7ATrUMmRQXyXxw638EziX2jXEyjCYYm0hzN5o5nY6/8AT0QCJ0mew6yrv2kqpu/9h/jyQpBBUkbMSVBAnp6fOgOGwuUAgCdJ07azr21+p7U8tjvude+uvX5z86h35Gh6eJMwP2kXAW+9YXzSpLKyELrrAKnSADofynWi3hbxQnEBdBy4e4AR5ZMqtsrlUodJ69DEHQSDVZu4QNpp0/t+lQH4Ok5oBMaA6iI/z60VqPdAen9jROIcMs4ywtrD3Qy2nVmugm5z2xOjA80Eg9d9tKPYZLnlqrXrjNEB/LRAPdiCQSRB94jSsh4PxrGYIMuHKBSQSGQEAxEjUEfpptVs8HeP8zlMWD5pOW35aMVI6KFWYbMTrEQenW8JwZnnjki28SRhYzKqxmtqQFYyWZVYjMYA19NOtELa6BWWNQRILAafhE8oiROmoPeueMjPZEu6kPaYa5dRcUQSIDe3tT2Kv2bTKbl3IYLZYJJnTliSYkzE1SkiVtgrxJisQ9sLhgj86m6QWDeWpDMERuWSNxOomiN5Lha2yyVyMMwJiCVIBBOu0T76a6V/DeL3zwcMhgtlYNAIOzFQDEiOpoHhOL4y1dYregXGLRAdAXknKWBy9o2rPLVY18/g0R02R+K/JeMRnctbUt5oaGIYKQNWB5dtCBsJkfJVmeJtZna6XYuxljuxn232H+ClSrUXvTH+mryjT+Gcaw+IuXEs3RcNsgNB016joRodR2p7h+At2pW0FEuzvl2zMZI9N9vasiur5hWSykF4KNkUMJG4IkkHcmY0Jot4S44cFbuWihuyxcANDBmkEEnSOSfn1nTTHPF8meelkvt/gvGJxr2EvYq/lKrIsoNDBCgAnuzCfSo/g/jIvWFe46m62bNlB+LMZAHYSNZqdgkXFWbN6/bRjAuKmjIjEeuhYSRPvEUQtrI5QFA2AA/XtVVyQdVVbnOHgbEhQIgz09Se1DR4ewpuLfFhFuA5ldeRusTtMgmZ/apXEsN5mW0WYAyz5TAKDQodZgk/kafAiSOZY2iT/cUwEcNhVYoGUFhJUmDBOhiddo17Ghl7H2ra3Wsw/lOUfLJCuoBI0/EBG/WoviX7wlu5cwt8qgWbiFQxUdSjHbuR9K5wHCBZwluwim7mIdmGxk5mdj1kn1OtSct2qKRjsnZM4XjmbMuWLmSYLF3IOgbN+Ez0IkRXFq7iZY4gBFUAhkIWRGwBBM6nTTrqa9sW7nmMoKtcthGZOWXLK2XNpoPz0qBjOGXtLRvguP4jK/OcpOusZk+ERAgQdKDbodJWSuPY8WsPmtWQRd/hl2/1A/hI5hExPb65+2CB0Dbf5vWiYW2MQtu1dt3VyQF/lGhCtuQ0AbmqhiuHZWZA0kMRPeCR/nvXnayUotS8G/SqLTj5BTKEaGaF0EyT7kabnX6U4baMAQTrOg210+u1Tn4aSNdfl/k1G/4Y6bNNYnqNjWsYycMQeVj6fWdROuteDDEnU/5/g/Onjh7oPb9/608yuOnSk77D20D79oKNR/Xv+sUOTCPnF23KMpBDDeRqDHvRprTMeY7jr6+/WpVu2EU7R+ftFMs78cgeJPkP8D8aOUy38OzMBANsgBjtMH4fzpzjnFGvlWOVcobkAnJMaknf4RtppQ3A3UKmeWNVGWcx683SonE8WqAMcwBnTXU66fl1rW805x6WzPHBCErSHsihSwyjbedZM6DoKFG//EA1gnXQ6mRyjXqCO230dxuFuW0Fy+AAXVVQkxDEKrOVkwD2766UQ4LhnwmLW0yIyXwzWrof4SIPl83Xm6dB71XHgrkWeVeCVbt2cPdtoyqc2YMHWTKjU7SNQR7e9KvPEWCN28LwLL5QKnq3M0BtDpMdOkzSqjiSTsrl1mS8eqqFMRGwywfUlvzqFhrjm8+bcqG5RA5ZX1BjNv2FScQw1gaEXJjoQFKfmNKHoQXAzEyMoaQAQSJB/l6ftU0vS0Wv1JhO1fuEBkuHKugQZx5v8x5W0HLA761rPCsWbttLhQoCsw24HfTp2rMWtkDMDJAKwIAEyQsd/wC9Wfw14qtLZVb5IAhF0mQYCqY61o02VcMyarG5bosXk2bfmX3OUuRLMfhGyrJ2Wem0k96gce8W4XDIpa6HOYSEOZojsNz6UC8XeLC1t7FuzCMpBYkFjoGEAbb/AJVmVx8zeYRAHwzoY11jqdPyNX7qf2ko6d16jY7niZMRh7gsWXzOhgOVUa6E6Eyar/DeLY3CILcoyDRQYZlAgALEfnNccPyJbQ5tMgUAGSCRI066T9aHcWx4RQt3+GF1Ywcp6iD29PQVglqckpWjbHBjiqZEv8Xm+96010nUPcVmU8pgg66if2pvDcaKYj70jMLmXIXY5synUBs240EflUPhl266M9pAmHNxgsiHuCZMToqA9wTGlQ+KIS45GDtBYZTM+56b00Y22ra/Zzkq4/wXyz45utq2IVB/ptD9daFniFtiSMQmpnWQT71TL2IcOLFgfxDyudxBGsdBvVmsNnui0Wt5lkOuVSAvT5xP5VPPhct5SsfFkhHaKoLJjF28y2fZxNSlvTt7DUGur3B8Nbtm95ds6aA6S3QD1qv4rHroThLUHSFJDsZHb2PTrWV6RMv30ixLf7j9K6S7IEARMHYEf2qvLhELZVtO2knU8s9M2zb9KLcG4RhrwXMrLnBgMxE/I7a9Kn9Kvcbuo9xlxAOZ0HuwoOMXZB5WLmfwgkfWKtmK8HYVQoCT1Mk6AdB3qfhvD9pFDAakgwTptAWPanhpEuWK9QvBRuIX8QwAw9lgrHLm2n0BaNBO9Wbw9wBbFws8vciVLGVBM5iuu/wjWj/E+H2ynMMoGnLvDEDSOskfpUBJw7lWZnQwZ3at+OMFsjLOcmc8a4eL1hgfigN7Eag/WqvYxj3sEwIIuWMzKPxLctSyMPQxHrJq4XmdX5SrIw1Zt5OwAHfWZ2gVX7gtsUvAKrKPLUKcr5iDmV0nXQAjtBNUVCchu3jke0M2pgA7cw3BzbR1HvSoVwmyBNlQyMQbgn4UJbmX5nMQOkke6rnFXwDqo78Y4C2FJCAH0kdD2rOwgABA3Jn5Ff60qVWzkdO9izYiwq2XcCGOWT7Bv6UOmDbA2D2/2/pSpVij9pqfI74n0VSNJOvrov8AQULYQEPdT/7xSpU2P7F+yr5LF4Wuk2Uk/DIHpEgflTXiKyrWLIYSDfEg6zyMdfnSpVnW2Z/lnS+xDBunz3WYAWQBoAeXWBULj+LcC5cDEOCYbqIBgClSq2Pn9IlPj+SL4KsKbTuRzFWYnqTDGZ9644SoSw1xNHJEt1PU6/OlSqkvukJH7UGbhLX0tkkpvlkxMb+9FOD2la9fuFQWTkQx8I7AbfOlSrPNvpLR5LA9hVyEKAdf2qTirYMyAYjp6zSpVmRZjlw8p9q6tKDeRDqqqCB0nX60qVXiTfBMxY57X++fmEcj3/tQLxC580CdIP6UqVVx/cIuATi8SxtPLH/mD8hI/Oh/GnJvYedyLzE7ElFhCSNdMzfWvKVbVwRkXnBYVHuqWUEiSD1/ENxSpUqpp0nH9mbPJqWx/9k=" alt="Mocha">
+                        <h4>Chocolate Mocha</h4>
+                        <p>Perfect blend of espresso, chocolate and steamed milk</p>
+                        <div class="menu-price">$5.99</div>
+                        <button class="btn add-to-cart" onclick="addToCart('Chocolate Mocha', 5.99)">
+                            <i class="fas fa-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Cold Brew -->
+                <div class="col-lg-4 col-md-6 menu-item cold">
+                    <div class="menu-card">
+                        <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Iced Coffee">
+                        <h4>Iced Coffee</h4>
+                        <p>Refreshing cold brew served with ice and cream</p>
+                        <div class="menu-price">$4.49</div>
+                        <button class="btn add-to-cart" onclick="addToCart('Iced Coffee', 4.49)">
+                            <i class="fas fa-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 menu-item cold">
+                    <div class="menu-card">
+                        <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Frappuccino">
+                        <h4>Caramel Frappuccino</h4>
+                        <p>Blended ice coffee with caramel and whipped cream</p>
+                        <div class="menu-price">$6.49</div>
+                        <button class="btn add-to-cart" onclick="addToCart('Caramel Frappuccino', 6.49)">
+                            <i class="fas fa-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Snacks -->
+                <div class="col-lg-4 col-md-6 menu-item snacks">
+                    <div class="menu-card">
+                        <img src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Croissant">
+                        <h4>Fresh Croissant</h4>
+                        <p>Buttery, flaky pastry perfect with your coffee</p>
+                        <div class="menu-price">$3.99</div>
+                        <button class="btn add-to-cart" onclick="addToCart('Fresh Croissant', 3.99)">
+                            <i class="fas fa-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specials Section -->
+    <section class="specials-section section-padding">
+        <div class="container">
+            <h2 class="section-title text-white">Today's Specials</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="special-offer">
+                        <div class="offer-title">Buy 1 Get 1 Free</div>
+                        <p>On all hot beverages from 9 AM to 11 AM</p>
+                        <button class="btn btn-dark">Claim Offer</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="special-offer">
+                        <div class="offer-title">Student Discount</div>
+                        <p>20% off with valid student ID</p>
+                        <button class="btn btn-dark">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Gallery</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Latte Art" class="img-fluid gallery-img">
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Coffee Beans" class="img-fluid gallery-img">
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Cafe Interior" class="img-fluid gallery-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section-padding" style="background-color: var(--light-brown);">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"The best coffee in town! Their cappuccino is absolutely perfect and the atmosphere is so cozy."</p>
+                        <div class="customer-name">- Sarah Johnson</div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Amazing service and incredible coffee. I'm here every morning before work!"</p>
+                        <div class="customer-name">- Mike Chen</div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Love the organic approach and the baristas really know their craft. Highly recommended!"</p>
+                        <div class="customer-name">- Emma Davis</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="blog-section section-padding">
+        <div class="container">
+            <h1 class="section-title">Coffee Blog</h1>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="blog-card">
+                        <img style="width: 100%;"  src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Coffee Brewing" class="img-fluid blog-img">
+                        <div class="blog-content">
+                            <h4>Perfect Brewing Techniques</h4>
+                            <p>Learn the secrets of brewing the perfect cup of coffee at home with our expert tips and tricks.</p>
+                            <a href="#" class="btn btn-outline-dark">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog-card">
+                        <img style="width: 100%;" src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Coffee Origins" class="img-fluid blog-img">
+                        <div class="blog-content">
+                            <h4>Coffee Bean Origins</h4>
+                            <p>Discover the journey of coffee beans from different regions and how they affect the taste of your coffee.</p>
+                            <a href="#" class="btn btn-outline-dark">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog-card">
+                        <img style="width: 100%;" src="https://images.unsplash.com/photo-1542181961-9590d0c79dab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Coffee and Health" class="img-fluid blog-img">
+                        <div class="blog-content">
+                            <h4>Health Benefits of Coffee</h4>
+                            <p>Explore the surprising health benefits of drinking coffee and how it can boost your well-being.</p>
+                            <a href="#" class="btn btn-outline-dark">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section section-padding">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="contact-form">
+                        <form>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Your Name" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" placeholder="Your Email" required>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn submit-btn">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div style="padding-top: 80px; padding-left: 80px; font-size: 25px;" class="contact-info">
+                        <h4>Contact Details</h4>
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Coffee St, Brewtown, CA 90210</p>
+                        <p><i class="fas fa-phone"></i> +1 (234) 567-8901</p>
+                        <p><i class="fas fa-envelope"></i> info@brewmastercafe.com</p>
+                        
+                        <div class="social-icons mt-4">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Footer Section -->
+    <footer class="footer ">
+        <div class="container">
+            <div class="row d-flex">
+                <div class="col-md-4 mb-5">
+                    <img style="width: 150px; " src="img/logo1.png" alt="">
+                    <h5>BrewMaster Cafe</h5>
+                    <p >Brewed with Love, Served with Passion.</p>
+                </div>
+                <div class="col-md-4 mb-5 mt-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4 mt-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr style="border-color: var(--cream);">
+            <div class="text-center" style="color: var(--gold); font-weight: bold;">
+                @copy Right 2025 // Developed by Diya Rajpoot
+            </div>
+        </div>
+    </footer>
+   
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JavaScript for smooth scrolling and other interactions
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // JavaScript for menu filtering
+        function filterMenu(category) {
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'col-lg-4 col-md-6 menu-item hot';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // JavaScript for cart functionality (simplified)
+        let cart = [];
+        function addToCart(item, price) {
+            cart.push({item, price});
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const cartCount = document.querySelector('.cart-btn');
+            cartCount.innerHTML = `<i class="fas fa-shopping-cart"></i> Cart (${cart.length})`;
+        }
+    </script>
+</body>
+</html>
