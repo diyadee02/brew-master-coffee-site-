@@ -12,6 +12,47 @@
             box-sizing: border-box;
         }
 
+
+
+
+
+
+
+            .hero-section h1 {
+     font-size: 4rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, var(--gold), var(--cream));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: var(--gold);
+      animation: bounce 2s infinite;
+    }
+     @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+
+    .hero-section p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: var(--gold);
+    }
+
+
+
+
+
+
         
 
         body {
