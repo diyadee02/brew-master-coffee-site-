@@ -13,11 +13,6 @@
         }
 
 
-
-
-
-
-
             .hero-section h1 {
      font-size: 4rem;
       font-weight: bold;
@@ -155,7 +150,8 @@
         /* Hero Section */
         .hero-section {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2061&q=80');
+                background: linear-gradient(135deg, rgba(139, 69, 19, 0.445), rgba(74, 44, 23, 0.9)),
+                  url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             display: flex;

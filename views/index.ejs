@@ -281,46 +281,78 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact-section section-padding">
-        <div class="container">
-            <h2 class="section-title">Get in Touch</h2>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="contact-form">
-                        <form>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Your Name" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="email" class="form-control" placeholder="Your Email" required>
-                            </div>
-                            <div class="mb-3">
-                                <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
-                            </div>
-                            <button type="submit" class="btn submit-btn">
-                                <i class="fas fa-paper-plane"></i> Send Message
-                            </button>
-                        </form>
+   <section id="contact" class="contact-section section-padding">
+    <div class="container">
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="contact-form">
+                    <!-- ✅ Added id for EmailJS -->
+                    <form id="contactForm">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="full_name" placeholder="Your Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" name="email_address"  placeholder="Your Email" required>
+                        </div>
+                         <div class="mb-3">
+                            <input type="text" class="form-control" name="subject"  placeholder="subject" required>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="4" name="message" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn submit-btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+
+                    <!-- ✅ Success Message -->
+                    <div class="success-message" id="successMessage" style="display:none; margin-top:10px; color:green;">
+                        <i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully.
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div style="padding-top: 80px; padding-left: 80px; font-size: 25px;" class="contact-info">
-                        <h4>Contact Details</h4>
-                        <p><i class="fas fa-map-marker-alt"></i> 123 Coffee St, Brewtown, CA 90210</p>
-                        <p><i class="fas fa-phone"></i> +1 (234) 567-8901</p>
-                        <p><i class="fas fa-envelope"></i> info@brewmastercafe.com</p>
-                        
-                        <div class="social-icons mt-4">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-youtube"></i></a>
-                        </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div style="padding-top: 80px; padding-left: 80px; font-size: 25px;" class="contact-info">
+                    <h4>Contact Details</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Coffee St, Brewtown, CA 90210</p>
+                    <p><i class="fas fa-phone"></i> +1 (234) 567-8901</p>
+                    <p><i class="fas fa-envelope"></i> info@brewmastercafe.com</p>
+                    
+                    <div class="social-icons mt-4">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<!-- ✅ EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+       (function() {
+        emailjs.init("z5Svhui9Gh8dHhzPC"); // 🔹 apna EmailJS public key yahan dalna
+    })();
+
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        emailjs.sendForm("service_7k9tsvf", "template_npxmegl", this)
+            .then(function() {
+                document.getElementById("successMessage").style.display = "block";
+                document.getElementById("contactForm").reset();
+            }, function(error) {
+                alert("Failed to send message. Please try again later.");
+                console.log("Error:", error);
+            });
+    });
+</script>
+
 <!-- Footer Section -->
     <footer class="footer ">
         <div class="container">
